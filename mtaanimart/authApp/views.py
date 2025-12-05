@@ -3,6 +3,62 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate ,login ,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django_daraja.mpesa.core import MpesaClient
+from ProductApp.models import CartItem
+
+
+
+
+
+def index(request):
+    cl = MpesaClient()
+    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+    phone_number = '0742252718'
+    amount = 1
+    account_reference = 'Mtaani mart'
+    transaction_desc = 'product purchase'
+    callback_url = 'https://api.darajambili.com/express-payment'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
+@login_required
+def checkout(request):
+    # Define the form inline
+    class CheckoutForm(forms.Form):
+        phone_number = forms.CharField(
+            max_length=13,
+            label="Phone Number",
+            widget=forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "e.g. 2547XXXXXXXX"
+            })
+        )
+
+    cart_items = CartItem.objects.filter(user=request.user)
+    total = sum(item.product.price * item.quantity for item in cart_items)
+
+    if request.method == "POST":
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            phone_number = form.cleaned_data["phone_number"]
+
+            cl = MpesaClient()
+            account_reference = "Mtaani Mart"
+            transaction_desc = "Product purchase"
+            callback_url = "https://api.darajambili.com/express-payment"
+
+            response = cl.stk_push(phone_number, total, account_reference, transaction_desc, callback_url)
+
+            return HttpResponse(response)  # or render a success page
+    else:
+        form = CheckoutForm()
+
+    return render(request, "authApp/checkout.html", {...})
+        "form": form,
+        "cart_items": cart_items,
+        "total": total
+    )
+
  
 
 # Create your views here.
@@ -42,3 +98,9 @@ def registerUser(request):
     
     context={"form": form}
     return render(request, 'authApp/register_form.html', context)
+
+def mpesaPayment(request):
+    
+    
+    context={}
+    return render(request,'authApp/prompt_stk_push.html',context)

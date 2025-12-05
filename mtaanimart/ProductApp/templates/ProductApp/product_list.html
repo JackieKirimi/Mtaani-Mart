@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Products - Mtaani Mart{% endblock %}
+
+{% block content %}
+<h2 class="text-center my-4">Available Products</h2>
+<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addProductModal">
+  + Add New Product
+</button>
+
+
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-product.jpg' %}" class="card-img-top" alt="Default image">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>Ksh {{ product.price }}</strong></p>
+
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'add_to_cart' product.id %}" class="mt-auto">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success w-100">Add to Cart</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-secondary w-100 mt-auto">Login to Add</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No products available yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<hr>
+
+<!-- Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <button type="button" class="btn btn-primary my-3 d-flex-justify-contant-between align-items-center mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">
+  <i class="bi bi-plus-circle"></i> Add New Product
+</button>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success">Add Item</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,5 +1,47 @@
 {% extends 'main.html' %}
- 
- {% block content %}
- <h1 class="display-6">Welcome to Mtaani Mart </h1>
- {% endblock %}
+{% load static %}
+
+{% block title %}Home - Mtaani Mart{% endblock %}
+
+{% block content %}
+<style>
+.hero-section {
+    background-image: url("{% static 'images/mtaani-bg.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    color: white;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent dark overlay */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-overlay h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-overlay h5 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+</style>
+
+<div class="hero-section">
+    <div class="hero-overlay">
+        <h1>Welcome to Mtaani Mart</h1>
+        <h5>Browse to view products</h5>
+        <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg">View Products</a>
+    </div>
+</div>
+{% endblock %}
