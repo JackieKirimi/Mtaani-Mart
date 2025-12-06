@@ -19,7 +19,7 @@ def product_list(request):
             product = form.save(commit=False)
             product.owner = request.user
             product.save()
-            return redirect("product_list")  # ✅ redirect to itself
+            return redirect("product_list")  
     else:
         form = ProductForm()
 

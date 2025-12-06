@@ -1,35 +1,50 @@
-<!-- navbar.html -->
-<nav class="navbar navbar-expand-lg bg-warning">
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Mtaani Mart</a>
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            <img src="{% static 'ProductApp/images/logo-1.png' %}" alt="Mtaani Mart Logo"
+                style="height:70px; width:auto; margin-right:10px;">
+            <span style="font-size:1.8rem; font-weight:700; color:#201b4d; letter-spacing:1px;">
+                Mtaani Mart
+            </span>
+        </a>
+
+        <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cart' %}">Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Offers</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                {% if request.user.is_authenticated %}
-                <p class="lead fs-6">Welcome {{request.user}}</p>
-                <li class="nav-item">
-                    <a class="nav-link bg-white rounded-5 px-3 py-2" href="{% url 'logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link bg-white rounded-5 px-3 py-2" href="{% url 'login' %}">Login</a>
-                </li>
-                {% endif %}
-            </ul>
+
+        <!-- Links -->
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Push links to the right -->
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item me-3"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item me-3"><a class="nav-link" href="{% url 'product_list' %}">Products</a></li>
+                <li class="nav-item me-3"><a class="nav-link" href="{% url 'cart' %}">Cart</a></li>
+
+
+
+                <ul class="navbar-nav align-items-center">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item me-3">
+                        <span class="navbar-text lead fs-6 mb-0">Welcome {{ request.user }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'logout' %}">
+                            Logout
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'login' %}">
+                            Login
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
         </div>
     </div>
 </nav>

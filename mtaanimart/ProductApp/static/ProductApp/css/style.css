@@ -1,0 +1,52 @@
+.navbar-custom {
+  background-color: #4B0082; /* deep purple */
+  color: white;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+  color: white;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #d4f1c5; /* soft green hover */
+}
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent dark overlay */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;   /* push content towards the top */
+    align-items: center;           /* keep centered horizontally */
+    text-align: center;
+    padding-top: 120px;            /* adjust how far down from the top */
+}
+.hero-overlay .btn {
+    background-color: #28a745;   /* fresh green */
+    border-color: #28a745;
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 6px;          /* rounded corners */
+    transition: all 0.3s ease;   /* smooth hover effect */
+}
+
+.hero-overlay .btn:hover {
+    background-color: #218838;   /* darker green on hover */
+    border-color: #1e7e34;
+    transform: scale(1.05);      /* subtle zoom on hover */
+    color: #fff;
+}
+/* Logo image */
+.logo-img {
+  height: 70px;        /* increase size */
+  width: auto;         /* keep proportions */
+}
+
+/* Logo text */
+.logo-text {
+  font-size: 1.8rem;   /* larger text */
+  color: #FFD700;      /* gold for visibility */
+  font-weight: 700;
+  letter-spacing: 1px; /* subtle spacing for elegance */
+}

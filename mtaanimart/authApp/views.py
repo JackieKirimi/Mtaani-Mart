@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django_daraja.mpesa.core import MpesaClient
 from ProductApp.models import CartItem
+from django import forms
 
 
 
@@ -23,7 +24,7 @@ def index(request):
     return HttpResponse(response)
 @login_required
 def checkout(request):
-    # Define the form inline
+    # Inline form definition
     class CheckoutForm(forms.Form):
         phone_number = forms.CharField(
             max_length=13,
@@ -36,6 +37,7 @@ def checkout(request):
 
     cart_items = CartItem.objects.filter(user=request.user)
     total = sum(item.product.price * item.quantity for item in cart_items)
+    amount = int(total)  # ✅ ensure integer
 
     if request.method == "POST":
         form = CheckoutForm(request.POST)
@@ -47,17 +49,18 @@ def checkout(request):
             transaction_desc = "Product purchase"
             callback_url = "https://api.darajambili.com/express-payment"
 
-            response = cl.stk_push(phone_number, total, account_reference, transaction_desc, callback_url)
+            response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
 
-            return HttpResponse(response)  # or render a success page
+            return HttpResponse(response)
     else:
         form = CheckoutForm()
 
-    return render(request, "authApp/checkout.html", {...})
+    return render(request, "authApp/checkout.html", {
         "form": form,
         "cart_items": cart_items,
         "total": total
-    )
+    })
+
 
  
 
