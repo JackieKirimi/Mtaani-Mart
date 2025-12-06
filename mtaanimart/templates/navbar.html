@@ -30,7 +30,10 @@
                 <ul class="navbar-nav align-items-center">
                     {% if request.user.is_authenticated %}
                     <li class="nav-item me-3">
-                        <span class="navbar-text lead fs-6 mb-0">Welcome {{ request.user }}</span>
+                    <li class="nav-item">
+                        <span class="nav-link">Welcome, {{ user.username }}</span>
+                    </li>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'logout' %}">

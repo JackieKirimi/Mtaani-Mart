@@ -2,53 +2,67 @@
 {% block title %}My Cart - Mtaani Mart{% endblock %}
 
 {% block content %}
-<h2 class="text-center my-4">My Cart</h2>
+<h2 class="text-center my-4 ">My Cart</h2>
 
 <div class="container">
     {% if cart_items %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Image</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>
-                        {% if item.product.image %}
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="height:60px;">
-                        {% endif %}
-                    </td>
-                    <td>Ksh {{ item.product.price }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>Ksh {{ item.product.price|floatformat:2|add:item.quantity }}</td>
-                    <td>
-                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Remove</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table class="table table-striped" style="border-radius:10px; overflow:hidden;">
+        <thead style="background-color:#6a0dad; color:white; text-align:center;">
+            <tr>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td style="font-weight:600;">{{ item.product.name }}</td>
+                <td>
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                        style="width:60px; height:60px; object-fit:cover; border-radius:8px;">
+                    {% endif %}
+                </td>
+                <td style="color:#28a745; font-weight:bold;">Ksh {{ item.product.price }}</td>
+                <td style="text-align:center;">{{ item.quantity }}</td>
+                <!-- ✅ Correct subtotal calculation -->
+                <td style="color:#6a0dad; font-weight:bold;">
+                    Ksh {{ item.subtotal|floatformat:2 }}
+                </td>
 
-        <h4 class="text-end">Total: Ksh {{ total }}</h4>
+                <td>
+                    <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm"
+                        style="border-radius:20px; font-weight:bold;">
+                        Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-        <!-- ✅ Checkout form -->
-        <div class="text-end">
-            <form method="post" action="{% url 'checkout' %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Checkout</button>
-            </form>
-        </div>
+    <!-- Total -->
+    <h4 class="text-end" style="color:#28a745; font-weight:bold;">
+        Total: Ksh {{ total }}
+    </h4>
+
+    <!-- Checkout Button -->
+    <div class="text-end mt-3">
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <button type="submit"
+                style="background-color:#28a745; color:white; padding:10px 25px; border:none; border-radius:30px; font-weight:bold; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+                Checkout
+            </button>
+        </form>
+    </div>
 
     {% else %}
-        <p class="text-center">Your cart is empty.</p>
+    <p class="text-center">Your cart is empty.</p>
     {% endif %}
 </div>
 {% endblock %}

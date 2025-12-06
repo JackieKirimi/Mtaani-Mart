@@ -1,18 +1,65 @@
-{% extends 'main.html'%}
+{% extends 'main.html' %}
 
 {% block content %}
-<div>
+<!-- Full-page background -->
+<div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding-top:60px;">
+
+  <!-- Registration card -->
+  <div style="max-width:600px; margin:0 auto; background-color:#f8f9fa; padding:30px; border-radius:20px; box-shadow:0 0 15px rgba(0,0,0,0.2);">
+    
+    <h3 style="text-align:center; margin-bottom:30px; color:#6a0dad; font-weight:700;">
+      Create Your Mtaani Mart Account
+    </h3>
+
     <form action="" method="POST">
-       {% csrf_token %} 
-       {{form.as_p}} 
-       
-       <button type="submit" class="btn btn-primary">Register</button>
-       <a href="{% url 'login' %}" class="mx-2 text-warning text-decoration-none">Back to login</a>
+      {% csrf_token %}
 
+      <!-- Username row -->
+      <div style="display:flex; align-items:center; margin-bottom:20px;">
+        <label for="{{ form.username.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Username:</label>
+        <div style="flex:1;">
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div style="color:red;">{{ form.username.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
 
+      <!-- Password row -->
+      <div style="display:flex; align-items:center; margin-bottom:20px;">
+        <label for="{{ form.password1.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Password:</label>
+        <div style="flex:1;">
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            <div style="color:red;">{{ form.password1.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Confirm Password row -->
+      <div style="display:flex; align-items:center; margin-bottom:20px;">
+        <label for="{{ form.password2.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Confirm Password:</label>
+        <div style="flex:1;">
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            <div style="color:red;">{{ form.password2.errors }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" 
+              style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold;">
+        Register
+      </button>
+
+      <!-- Back to login -->
+      <p style="text-align:center; margin-top:15px;">
+        <a href="{% url 'login' %}" style="text-decoration:none;  color:#6a0dad; font-weight:700;">
+          Back to Login
+        </a>
+      </p>
     </form>
-
-
+  </div>
 </div>
-
 {% endblock %}

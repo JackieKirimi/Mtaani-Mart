@@ -1,70 +1,52 @@
 {% extends 'main.html' %}
-{% load static %}
-
-{% block title %}Products - Mtaani Mart{% endblock %}
-
 {% block content %}
-<h2 class="text-center my-4">Available Products</h2>
-<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addProductModal">
-  + Add New Product
-</button>
-
+<h2 class="text-center my-4" style="color:#6a0dad; font-weight:700;">
+  Available Products
+</h2>
 
 <div class="container">
-    <div class="row">
-        {% for product in products %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                {% else %}
-                    <img src="{% static 'images/default-product.jpg' %}" class="card-img-top" alt="Default image">
-                {% endif %}
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
-                    <p class="card-text"><strong>Ksh {{ product.price }}</strong></p>
-
-                    {% if user.is_authenticated %}
-                        <form method="post" action="{% url 'add_to_cart' product.id %}" class="mt-auto">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success w-100">Add to Cart</button>
-                        </form>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="btn btn-outline-secondary w-100 mt-auto">Login to Add</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <p class="text-center">No products available yet.</p>
-        {% endfor %}
-    </div>
-</div>
-
-<hr>
-
-<!-- Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      
-      <!-- Modal Header -->
-      <button type="button" class="btn btn-primary my-3 d-flex-justify-contant-between align-items-center mb-4" data-bs-toggle="modal" data-bs-target="#addProductModal">
-  <i class="bi bi-plus-circle"></i> Add New Product
-</button>
-
-      <!-- Modal Body -->
-      <div class="modal-body">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit" class="btn btn-success">Add Item</button>
-        </form>
-      </div>
+  <!-- Add Product Button -->
+  <div class="row mb-3">
+    <div class="col text-end">
+      <a href="{% url 'add_product' %}" class="btn mb-3"
+        style="background-color:#28a745; color:white; padding:10px 25px; border:none; border-radius:30px; font-weight:bold; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+        + Add New Product
+      </a>
 
     </div>
   </div>
-</div>
 
+  <!-- Product Cards -->
+  <div class="row">
+  {% for product in products %}
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div style="height:400px; max-width:220px; margin-left:0; border:1px solid #ddd; border-radius:15px; padding:10px; box-shadow:0 0 8px rgba(0,0,0,0.1); background-color:#fff; display:flex; flex-direction:column; justify-content:space-between;">
+      
+      <!-- Product Image -->
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" 
+           style="width:100%; height:140px; object-fit:cover; border-radius:8px;">
+
+      <!-- Product Name -->
+      <h6 style="color:#6a0dad; font-weight:700; margin-top:10px; margin-bottom:6px;">{{ product.name }}</h6>
+
+      <!-- Product Description -->
+      <p style="font-size:0.8rem; color:#333; margin-bottom:6px; max-height:60px; overflow:hidden;">
+        {{ product.description }}
+      </p>
+
+      <!-- Price -->
+      <p style="font-weight:bold; color:#28a745; margin-bottom:8px;">Ksh {{ product.price }}</p>
+
+      <!-- Add to Cart Button -->
+      <form method="POST" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <button type="submit" 
+                style="width:100%; background-color:#28a745; color:#333; padding:6px; border:none; border-radius:15px; font-weight:bold; font-size:0.85rem;">
+          Add to Cart
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

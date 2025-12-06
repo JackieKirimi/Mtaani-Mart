@@ -28,6 +28,17 @@ def product_list(request):
         "form": form,
     }
     return render(request, "ProductApp/product_list.html", context)
+def add_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')  # after saving, go back to product list
+    else:
+        form = ProductForm()
+    
+    return render(request, 'productApp/add_product.html', {'form': form})
+
 
 # ✅ match folder name
 

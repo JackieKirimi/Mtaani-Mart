@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<!-- Full-page gradient background -->
+<div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding-top:60px;">
+
+  <!-- Add Product Card -->
+  <div style="max-width:600px; margin:0 auto; background-color:#f8f9fa; padding:30px; border-radius:20px; box-shadow:0 0 15px rgba(0,0,0,0.2);">
+    
+    <h3 style="text-align:center; margin-bottom:25px; color:#6a0dad; font-weight:700;">
+      Add New Product
+    </h3>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Product Name -->
+      <div style="margin-bottom:20px; display:flex; align-items:center;">
+        <label for="{{ form.name.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Name:</label>
+        <div style="flex:1;">
+          {{ form.name }}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div style="margin-bottom:20px; display:flex; align-items:center;">
+        <label for="{{ form.description.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Description:</label>
+        <div style="flex:1;">
+          {{ form.description }}
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div style="margin-bottom:20px; display:flex; align-items:center;">
+        <label for="{{ form.price.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Price:</label>
+        <div style="flex:1;">
+          {{ form.price }}
+        </div>
+      </div>
+
+      <!-- Image Upload -->
+      <div style="margin-bottom:20px; display:flex; align-items:center;">
+        <label for="{{ form.image.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Image:</label>
+        <div style="flex:1;">
+          {{ form.image }}
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <button type="submit" 
+              style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold;">
+        Save Product
+      </button>
+
+      <!-- Back to Products -->
+      <p style="text-align:center; margin-top:15px;">
+        <a href="{% url 'product_list' %}" style="text-decoration:none; color:#6a0dad; font-weight:700;">
+          Back to Products
+        </a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}

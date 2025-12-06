@@ -1,13 +1,49 @@
 {% extends 'main.html' %}
-{% block title %}Checkout{% endblock %}
 
 {% block content %}
-<h2>Checkout</h2>
-<p>Total Amount: Ksh {{ total }}</p>
+<!-- Full-page gradient background -->
+<div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding-top:60px;">
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Pay Now</button>
-</form>
+  <!-- Checkout Card -->
+  <div style="max-width:450px; margin:0 auto; background-color:#f8f9fa; padding:25px; border-radius:20px; box-shadow:0 0 15px rgba(0,0,0,0.2);">
+    
+    <h3 style="text-align:center; margin-bottom:20px; color:#6a0dad; font-weight:700;">
+      Checkout
+    </h3>
+
+    <!-- Total Amount -->
+    <p style="text-align:center; font-weight:bold; color:#28a745; font-size:1rem; margin-bottom:20px;">
+      Total Amount: Ksh {{ total_amount }}
+    </p>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Phone Number -->
+      <div style="margin-bottom:15px; display:flex; align-items:center;">
+        <label for="phone" style="width:130px; font-weight:600; color:#333;">Phone Number:</label>
+        <div style="flex:1;">
+          <input type="text" name="phone" id="phone" placeholder="e.g. 2547XXXXXXXX"
+                 style="width:100%; padding:8px 12px; border-radius:30px; border:1px solid #ccc; font-size:0.9rem;">
+          {% if form.phone.errors %}
+            <small style="color:red;">{{ form.phone.errors.0 }}</small>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Pay Button -->
+      <button type="submit" 
+              style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold;">
+        Pay Now
+      </button>
+
+      <!-- Back to Cart -->
+      <p style="text-align:center; margin-top:15px;">
+        <a href="{% url 'cart' %}" style="text-decoration:none; color:#28a745; font-weight:600;">
+          Back to Cart
+        </a>
+      </p>
+    </form>
+  </div>
+</div>
 {% endblock %}
