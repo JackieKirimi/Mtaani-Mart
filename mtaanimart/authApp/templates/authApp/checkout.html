@@ -13,37 +13,30 @@
 
     <!-- Total Amount -->
     <p style="text-align:center; font-weight:bold; color:#28a745; font-size:1rem; margin-bottom:20px;">
-      Total Amount: Ksh {{ total_amount }}
+      Total Amount: Ksh {{ total }}
     </p>
 
-    <form method="POST">
+   <form method="POST">
       {% csrf_token %}
 
       <!-- Phone Number -->
       <div style="margin-bottom:15px; display:flex; align-items:center;">
         <label for="phone" style="width:130px; font-weight:600; color:#333;">Phone Number:</label>
-        <div style="flex:1;">
-          <input type="text" name="phone" id="phone" placeholder="e.g. 2547XXXXXXXX"
-                 style="width:100%; padding:8px 12px; border-radius:30px; border:1px solid #ccc; font-size:0.9rem;">
-          {% if form.phone.errors %}
-            <small style="color:red;">{{ form.phone.errors.0 }}</small>
-          {% endif %}
-        </div>
-      </div>
+        <label for="phoneNumber" class="form-label"></label>
+        <input type="phoneNumber" class="form-control" id="phoneNumber" name="phoneNumber"
+          aria-describedby="phoneNumberHelp"
+          style="width:100%; padding:8px 12px; border-radius:30px; border:1px solid #ccc; font-size:0.9rem;">
+  </div>
+  <input type="submit" value="Pay Now"
+    style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold;">
 
-      <!-- Pay Button -->
-      <button type="submit" 
-              style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold;">
-        Pay Now
-      </button>
-
-      <!-- Back to Cart -->
-      <p style="text-align:center; margin-top:15px;">
-        <a href="{% url 'cart' %}" style="text-decoration:none; color:#28a745; font-weight:600;">
-          Back to Cart
-        </a>
-      </p>
-    </form>
+  <!-- Back to Cart -->
+  <p style="text-align:center; margin-top:15px;">
+    <a href="{% url 'cart' %}" style="text-decoration:none; color:#28a745; font-weight:600;">
+      Back to Cart
+    </a>
+  </p>
+  </form>
   </div>
 </div>
 {% endblock %}

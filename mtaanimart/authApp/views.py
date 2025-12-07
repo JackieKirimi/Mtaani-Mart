@@ -7,22 +7,19 @@ from django.http import HttpResponse
 from django_daraja.mpesa.core import MpesaClient
 from ProductApp.models import CartItem
 from django import forms
-
-
-
-
+#from .forms import DeliveryLocationForm
 
 def index(request):
     cl = MpesaClient()
     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
-    phone_number = '0742252718'
+    phone_number = '254742252718'
     amount = 1
     account_reference = 'Mtaani mart'
     transaction_desc = 'product purchase'
     callback_url = 'https://api.darajambili.com/express-payment'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
     return HttpResponse(response)
-@login_required
+@login_required(login_url='login')
 def checkout(request):
     # Inline form definition
     class CheckoutForm(forms.Form):
@@ -60,9 +57,6 @@ def checkout(request):
         "cart_items": cart_items,
         "total": total
     })
-
-
- 
 
 # Create your views here.
 def loginUser(request):
@@ -107,3 +101,16 @@ def mpesaPayment(request):
     
     context={}
     return render(request,'authApp/prompt_stk_push.html',context)
+
+
+'''def add_delivery_location(request):
+    if request.method == "POST":
+        form = DeliveryLocationForm(request.POST)
+        if form.is_valid():
+            delivery_location = form.save(commit=False)
+            delivery_location.user = request.user  # link to logged-in user
+            delivery_location.save()
+            return redirect("delivery_map")  # go to map after saving
+    else:
+        form = DeliveryLocationForm()
+    return render(request, "add_delivery.html", {"form": form})'''

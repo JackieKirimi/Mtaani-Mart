@@ -8,5 +8,8 @@ urlpatterns = [
     path('register/', views.registerUser, name='register'),
     path('payment', views.mpesaPayment, name='mpesaPayment'),
     path("checkout/", views.checkout, name="checkout"),
+    #path("delivery/", views.delivery_map, name="delivery_map"),
+    #path("add-delivery/", views.add_delivery_location, name="add_delivery"),
+
 
 ]

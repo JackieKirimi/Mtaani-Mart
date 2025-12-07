@@ -52,13 +52,7 @@
 
     <!-- Checkout Button -->
     <div class="text-end mt-3">
-        <form method="post" action="{% url 'checkout' %}">
-            {% csrf_token %}
-            <button type="submit"
-                style="background-color:#28a745; color:white; padding:10px 25px; border:none; border-radius:30px; font-weight:bold; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
-                Checkout
-            </button>
-        </form>
+        <a href="{% url 'checkout' %}" class="text-decoration-none" style="background-color:#28a745; color:white; padding:10px 25px; border:none; border-radius:30px; font-weight:bold; box-shadow:0 4px 8px rgba(0,0,0,0.1);">Checkout</a
     </div>
 
     {% else %}
