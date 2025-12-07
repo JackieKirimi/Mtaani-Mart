@@ -1,42 +1,36 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<!-- Full-page gradient background -->
 <div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding-top:60px;">
 
-  <!-- Checkout Card -->
   <div style="max-width:450px; margin:0 auto; background-color:#f8f9fa; padding:25px; border-radius:20px; box-shadow:0 0 15px rgba(0,0,0,0.2);">
     
     <h3 style="text-align:center; margin-bottom:20px; color:#6a0dad; font-weight:700;">
       Checkout
     </h3>
 
-    <!-- Total Amount -->
     <p style="text-align:center; font-weight:bold; color:#28a745; font-size:1rem; margin-bottom:20px;">
       Total Amount: Ksh {{ total }}
     </p>
 
-   <form method="POST">
+    <form method="POST">
       {% csrf_token %}
+      {{ form.phone_number }}   <!-- ✅ matches forms.py -->
+      {% if form.phone_number.errors %}
+        <div style="color:red; font-size:0.85rem;">
+          {{ form.phone_number.errors }}
+        </div>
+      {% endif %}
 
-      <!-- Phone Number -->
-      <div style="margin-bottom:15px; display:flex; align-items:center;">
-        <label for="phone" style="width:130px; font-weight:600; color:#333;">Phone Number:</label>
-        <label for="phoneNumber" class="form-label"></label>
-        <input type="phoneNumber" class="form-control" id="phoneNumber" name="phoneNumber"
-          aria-describedby="phoneNumberHelp"
-          style="width:100%; padding:8px 12px; border-radius:30px; border:1px solid #ccc; font-size:0.9rem;">
-  </div>
-  <input type="submit" value="Pay Now"
-    style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold;">
+      <input type="submit" value="Pay Now"
+        style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold; margin-top:20px;">
 
-  <!-- Back to Cart -->
-  <p style="text-align:center; margin-top:15px;">
-    <a href="{% url 'cart' %}" style="text-decoration:none; color:#28a745; font-weight:600;">
-      Back to Cart
-    </a>
-  </p>
-  </form>
+      <p style="text-align:center; margin-top:15px;">
+        <a href="{% url 'cart' %}" style="text-decoration:none; color:#28a745; font-weight:600;">
+          Back to Cart
+        </a>
+      </p>
+    </form>
   </div>
 </div>
 {% endblock %}

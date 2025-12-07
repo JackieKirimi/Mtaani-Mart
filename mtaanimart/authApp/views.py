@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django_daraja.mpesa.core import MpesaClient
 from ProductApp.models import CartItem
+from .forms import CheckoutForm
+from django.conf import settings
 from django import forms
 #from .forms import DeliveryLocationForm
 
@@ -21,20 +23,9 @@ def index(request):
     return HttpResponse(response)
 @login_required(login_url='login')
 def checkout(request):
-    # Inline form definition
-    class CheckoutForm(forms.Form):
-        phone_number = forms.CharField(
-            max_length=13,
-            label="Phone Number",
-            widget=forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "e.g. 2547XXXXXXXX"
-            })
-        )
-
     cart_items = CartItem.objects.filter(user=request.user)
     total = sum(item.product.price * item.quantity for item in cart_items)
-    amount = int(total)  # ✅ ensure integer
+    amount = int(total) if total >= 1 else 1  # ensure ≥ 1
 
     if request.method == "POST":
         form = CheckoutForm(request.POST)
@@ -45,10 +36,13 @@ def checkout(request):
             account_reference = "Mtaani Mart"
             transaction_desc = "Product purchase"
             callback_url = "https://api.darajambili.com/express-payment"
-
-            response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-
-            return HttpResponse(response)
+            response = cl.stk_push(
+                phone_number, amount,
+                account_reference, transaction_desc,
+                callback_url
+            )
+            print(response)# debug response in console
+        return HttpResponse(response)
     else:
         form = CheckoutForm()
 
@@ -57,6 +51,8 @@ def checkout(request):
         "cart_items": cart_items,
         "total": total
     })
+
+
 
 # Create your views here.
 def loginUser(request):
