@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding:40px; color:#fff;">
+
+  <h2 style="text-align:center; margin-bottom:30px; font-weight:700;">Help & Support</h2>
+  <h3  style="text-align:center; margin-bottom:30px; font-weight:700;" >Are you stuck and need help? Mtaani mart got you</h3>
+
+  <h3 style="color:#ffd700;"> How to Register or Log In</h3>
+<p style="line-height:1.7;">
+  To start shopping, you need an account. Click <strong>Register</strong> in the navigation bar to create one, 
+  or <strong>Login</strong> if you already have an account. Once logged in, you can add items to your cart and place orders.
+</p>
+ <h3 style="color:#ffd700; margin-top:25px;"> How to Place an Order</h3>
+  <p style="line-height:1.7;">
+    Once items are in your cart, go to the <strong>Cart</strong> page and click <em>“Checkout.”</em> 
+    Enter your phone number in <strong>2547XXXXXXXX</strong> format, then click <em>“Pay Now.”</em> 
+    You’ll receive an M-Pesa STK push prompt to confirm payment.
+  </p>
+  <!-- Section: Add Item to Cart -->
+  <h3 style="color:#ffd700;">How to Add an Item to Cart</h3>
+  <p style="line-height:1.7;">
+    Browse products on the <strong>Products</strong> page. Click the <em>“Add to Cart”</em> button under the item you want. 
+    Your cart will update automatically, and you can view it anytime by clicking <strong>Cart</strong> in the navigation bar.
+  </p>
+ 
+
+<h3 style="color:#ffd700; margin-top:25px;"> How to Manage Your Cart</h3>
+<p style="line-height:1.7;">
+  You can view your cart anytime by clicking <strong>Cart</strong> in the navigation bar. 
+  From there, you can update quantities, remove items, or proceed to checkout.
+</p>
+
+
+</div>
+
+<!-- Footer -->
+<footer style="background:#333; color:#fff; text-align:center; padding:20px; margin-top:0;">
+  <p>&copy; 2025 Mtaani Mart. All rights reserved.</p>
+
+  <!-- Contact Us -->
+  <div style="margin-top:15px; line-height:1.8; font-size:1rem;">
+    <p><strong> Phone:</strong> +254 742252718</p>
+    <p><strong> Email:</strong> support@mtaanimart.com</p>
+    <p><strong> Facebook:</strong> <a href="https://facebook.com/mtaanimart" target="_blank" style="color:#28a745;">@MtaaniMart</a></p>
+    <p><strong> Twitter (X):</strong> <a href="https://twitter.com/mtaanimart" target="_blank" style="color:#28a745;">@MtaaniMart</a></p>
+    <p><strong> Instagram:</strong> <a href="https://instagram.com/mtaanimart" target="_blank" style="color:#28a745;">@MtaaniMart</a></p>
+  </div>
+
+  <!-- Quick Links -->
+  <p style="margin-top:15px;">
+    <a href="{% url 'home' %}" style="color:#28a745; text-decoration:none; margin:0 10px;">Home</a> |
+    <a href="{% url 'product_list' %}" style="color:#28a745; text-decoration:none; margin:0 10px;">Products</a> |
+    <a href="{% url 'cart' %}" style="color:#28a745; text-decoration:none; margin:0 10px;">Cart</a> |
+    <a href="{% url 'help' %}" style="color:#28a745; text-decoration:none; margin:0 10px;">Help</a>
+  </p>
+</footer>
+{% endblock %}

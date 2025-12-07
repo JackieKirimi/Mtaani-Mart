@@ -110,3 +110,6 @@ def mpesaPayment(request):
     else:
         form = DeliveryLocationForm()
     return render(request, "add_delivery.html", {"form": form})'''
+    
+def help_page(request):
+    return render(request, "authApp/help.html")
