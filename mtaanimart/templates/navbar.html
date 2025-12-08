@@ -1,54 +1,84 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-            <img src="{% static 'ProductApp/images/logo-1.png' %}" alt="Mtaani Mart Logo"
-                style="height:70px; width:auto; margin-right:10px;">
-            <span style="font-size:1.8rem; font-weight:700; color:#201b4d; letter-spacing:1px;">
-                Mtaani Mart
-            </span>
-        </a>
+<nav class="navbar navbar-expand-lg shadow-sm" style="
+    background-color:#201b4d; 
+    padding: 15px 30px;
+">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+      <img src="{% static 'ProductApp/images/logo-1.png' %}" alt="Mtaani Mart Logo"
+           style="height:70px; width:auto; margin-right:10px;">
+      <span style="font-size:1.8rem; font-weight:700; letter-spacing:1px; color:#fff;">
+        Mtaani Mart
+      </span>
+    </a>
 
-        <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <!-- Links -->
-        <!-- Navbar content -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Push links to the right -->
-            <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item me-3"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                <li class="nav-item me-3"><a class="nav-link" href="{% url 'product_list' %}">Products</a></li>
-                <li class="nav-item me-3"><a class="nav-link" href="{% url 'cart' %}">Cart</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'help' %}">Help</a></li>
-
-
-
-                <ul class="navbar-nav align-items-center">
-                    {% if request.user.is_authenticated %}
-                    <li class="nav-item me-3">
-                    <li class="nav-item">
-                        <span class="nav-link">Welcome, {{ user.username }}</span>
-                    </li>
-
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'logout' %}">
-                            Logout
-                        </a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'login' %}">
-                            Login
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-        </div>
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item me-3">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link cart-link" href="{% url 'cart' %}">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'help' %}">Help</a>
+        </li>
+      </ul>
     </div>
+
+    <!-- Auth Links -->
+    <ul class="navbar-nav align-items-center">
+      {% if request.user.is_authenticated %}
+        <li class="nav-item me-3">
+          <span class="nav-link" style="color:#fff;">Welcome, {{ user.username }}</span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'logout' %}">
+            Logout
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link btn btn-light rounded-5 px-3 py-2" href="{% url 'login' %}">
+            Login
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
 </nav>
+
+<!-- Navbar Styles -->
+<style>
+  .navbar-nav .nav-link {
+    color: #fff !important;       /* default white */
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color:#28a745 !important;    /* red hover */
+  }
+
+  /* Cart link special styling */
+  .navbar-nav .nav-link.cart-link {
+    color: #fff!important;    /* red by default */
+    font-weight: 700;
+  }
+  .navbar-nav .nav-link.cart-link:hover {
+    color:#28a745 !important;       /* invert to white on hover */
+  }
+</style>

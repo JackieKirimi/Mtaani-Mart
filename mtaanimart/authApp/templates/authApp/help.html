@@ -1,142 +1,157 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding:40px; color:#fff;">
+<style>
+  /* Page Wrapper */
+  .help-section {
+    min-height: 100vh;
+    background-color: #f9f9f9; /* soft off-white */
+    padding: 60px 20px;
+    color: #201b4d; /* navy text */
+  }
 
+  /* Page Title */
+  .help-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #201b4d; /* navy */
+  }
+
+  /* Subtitle */
+  .help-section h3.subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #555; /* soft gray */
+  }
+
+  /* Info Cards */
+  .info-card {
+    background-color: #ffffff; /* clean white */
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 5px solid #201b4d; /* navy accent strip */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .info-card h3 {
+    color: #28a745; /* green accent for headings */
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .info-card p {
+    line-height: 1.7;
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #201b4d; /* solid navy footer */
+    color: #fff;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 40px;
+    border-top: none;
+  }
+
+  footer h3 {
+    color: #28a745; /* green accent */
+    margin-bottom: 15px;
+  }
+
+  footer a {
+    color: #28a745;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  footer .quick-links a {
+    margin: 0 12px;
+  }
+</style>
+
+<!-- Help Section -->
+<div class="help-section">
   <!-- Page Title -->
-  <h2 style="
-    text-align:center; 
-    margin-bottom:20px; 
-    font-weight:700; 
-    font-size:2rem; 
-    color:#ffd700;
-  ">
-    Help & Support
-  </h2>
+  <h2>Help & Support</h2>
 
   <!-- Subtitle -->
-  <h3 style="
-    text-align:center; 
-    margin-bottom:40px; 
-    font-weight:600; 
-    font-size:1.2rem; 
-    background:rgba(0,0,0,0.3); 
-    padding:10px; 
-    border-radius:8px;
-  ">
-    Are you stuck and need help? Mtaani Mart got you ✅
-  </h3>
+  <h3 class="subtitle">Are you stuck and need help? Mtaani Mart got you ✅</h3>
 
-  <!-- Info Card -->
-  <div style="
-    background:rgba(0,0,0,0.25); 
-    padding:20px; 
-    border-radius:12px; 
-    margin-bottom:25px; 
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-  ">
-    <h3 style="color:#ffd700; margin-bottom:10px;">📝 How to Register or Log In</h3>
-    <p style="line-height:1.7; font-size:0.95rem;">
-      To start shopping, you need an account. Click <strong>Register</strong> in the navigation bar to create one, 
+  <!-- Info Cards -->
+  <div class="info-card">
+    <h3> How to Register or Log In</h3>
+    <p>
+      To start shopping, you need an account. Click <strong>Register</strong> in the navigation bar to create one,
       or <strong>Login</strong> if you already have an account. Once logged in, you can add items to your cart and place orders.
     </p>
   </div>
 
-  <!-- Info Card -->
-  <div style="
-    background:rgba(0,0,0,0.25); 
-    padding:20px; 
-    border-radius:12px; 
-    margin-bottom:25px; 
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-  ">
-    <h3 style="color:#ffd700; margin-bottom:10px;">💳 How to Place an Order</h3>
-    <p style="line-height:1.7; font-size:0.95rem;">
-      Once items are in your cart, go to the <strong>Cart</strong> page and click <em>“Checkout.”</em> 
-      Enter your phone number in <strong>2547XXXXXXXX</strong> format, then click <em>“Pay Now.”</em> 
+  <div class="info-card">
+    <h3> How to Place an Order</h3>
+    <p>
+      Once items are in your cart, go to the <strong>Cart</strong> page and click <em>“Checkout.”</em>
+      Enter your phone number in <strong>2547XXXXXXXX</strong> format, then click <em>“Pay Now.”</em>
       You’ll receive an M-Pesa STK push prompt to confirm payment.
     </p>
   </div>
 
-  <!-- Info Card -->
-  <div style="
-    background:rgba(0,0,0,0.25); 
-    padding:20px; 
-    border-radius:12px; 
-    margin-bottom:25px; 
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-  ">
-    <h3 style="color:#ffd700; margin-bottom:10px;">🛒 How to Add an Item to Cart</h3>
-    <p style="line-height:1.7; font-size:0.95rem;">
-      Browse products on the <strong>Products</strong> page. Click the <em>“Add to Cart”</em> button under the item you want. 
+  <div class="info-card">
+    <h3>How to Add an Item to Cart</h3>
+    <p>
+      Browse products on the <strong>Products</strong> page. Click the <em>“Add to Cart”</em> button under the item you want.
       Your cart will update automatically, and you can view it anytime by clicking <strong>Cart</strong> in the navigation bar.
     </p>
   </div>
 
-  <!-- Info Card -->
-  <div style="
-    background:rgba(0,0,0,0.25); 
-    padding:20px; 
-    border-radius:12px; 
-    margin-bottom:25px; 
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-  ">
-    <h3 style="color:#ffd700; margin-bottom:10px;">📦 How to Manage Your Cart</h3>
-    <p style="line-height:1.7; font-size:0.95rem;">
-      You can view your cart anytime by clicking <strong>Cart</strong> in the navigation bar. 
+  <div class="info-card">
+    <h3> How to Manage Your Cart</h3>
+    <p>
+      You can view your cart anytime by clicking <strong>Cart</strong> in the navigation bar.
       From there, you can update quantities, remove items, or proceed to checkout.
     </p>
   </div>
-
 </div>
 
 <!-- Footer -->
-<footer style="
-  background: linear-gradient(135deg, #6a0dad, #28a745); 
-  color:#fff; 
-  text-align:center; 
-  padding:30px 20px; 
-  margin-top:0; 
-  border-top:none;
-">
-  
-
+<footer>
   <!-- Contact Info -->
   <div style="margin-bottom:20px; line-height:1.8; font-size:0.95rem;">
-        <h3 style="color:#ffd700; margin-bottom:15px;"> Contact Us</h3>
-    <p> <strong>Phone:</strong> +254 742252718</p>
-    <p><strong>Email:</strong> 
-      <a href="mailto:support@mtaanimart.com" style="color:#ffd700; text-decoration:none;">
-        support@mtaanimart.com
-      </a>
+    <h3>Contact Us</h3>
+    <p><strong>Phone:</strong> +254 742252718</p>
+    <p><strong>Email:</strong>
+      <a href="mailto:support@mtaanimart.com">support@mtaanimart.com</a>
     </p>
-    <p> <strong>Facebook:</strong> 
-      <a href="https://facebook.com/mtaanimart" target="_blank" style="color:#ffd700; text-decoration:none;">
-        @MtaaniMart
-      </a>
+    <p><strong>Facebook:</strong>
+      <a href="https://facebook.com/mtaanimart" target="_blank">@MtaaniMart</a>
     </p>
-    <p> <strong>Twitter (X):</strong> 
-      <a href="https://twitter.com/mtaanimart" target="_blank" style="color:#ffd700; text-decoration:none;">
-        @MtaaniMart
-      </a>
+    <p><strong>Twitter (X):</strong>
+      <a href="https://twitter.com/mtaanimart" target="_blank">@MtaaniMart</a>
     </p>
-    <p> <strong>Instagram:</strong> 
-      <a href="https://instagram.com/mtaanimart" target="_blank" style="color:#ffd700; text-decoration:none;">
-        @MtaaniMart
-      </a>
+    <p><strong>Instagram:</strong>
+      <a href="https://instagram.com/mtaanimart" target="_blank">@MtaaniMart</a>
     </p>
   </div>
 
   <!-- Quick Links -->
-  <div style="margin-top:10px; font-size:0.95rem;">
-    <a href="{% url 'home' %}" style="color:#ffd700; text-decoration:none; margin:0 12px;">Home</a> |
-    <a href="{% url 'product_list' %}" style="color:#ffd700; text-decoration:none; margin:0 12px;">Products</a> |
-    <a href="{% url 'cart' %}" style="color:#ffd700; text-decoration:none; margin:0 12px;">Cart</a> |
-    <a href="{% url 'help' %}" style="color:#ffd700; text-decoration:none; margin:0 12px;">Help</a>
+  <div class="quick-links" style="margin-top:10px; font-size:0.95rem;">
+    <a href="{% url 'home' %}">Home</a> |
+    <a href="{% url 'product_list' %}">Products</a> |
+    <a href="{% url 'cart' %}">Cart</a> |
+    <a href="{% url 'help' %}">Help</a>
   </div>
 
   <p style="font-size:1rem; font-weight:600; margin-bottom:15px;">
-    &copy; 2025 <span style="color:#ffd700;">Mtaani Mart</span>. All rights reserved.
+    &copy; 2025 <span style="color:#28a745;">Mtaani Mart</span>. All rights reserved.
   </p>
 </footer>
 {% endblock %}
