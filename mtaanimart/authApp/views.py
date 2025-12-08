@@ -9,7 +9,9 @@ from ProductApp.models import CartItem
 from .forms import CheckoutForm
 from django.conf import settings
 from django import forms
-#from .forms import DeliveryLocationForm
+#from django.core.serializers import serialize
+#from .models import DeliveryPoint
+
 
 def index(request):
     cl = MpesaClient()
@@ -22,36 +24,40 @@ def index(request):
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
     return HttpResponse(response)
 @login_required(login_url='login')
+@login_required(login_url='login')
 def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total = sum(item.product.price * item.quantity for item in cart_items)
-    amount = int(total) if total >= 1 else 1  # ensure ≥ 1
+    amount = int(total) if total >= 1 else 1
+    quantities = range(1, 11)
 
     if request.method == "POST":
         form = CheckoutForm(request.POST)
         if form.is_valid():
             phone_number = form.cleaned_data["phone_number"]
+            quantity = int(request.POST.get("quantity", 1))
 
             cl = MpesaClient()
             account_reference = "Mtaani Mart"
-            transaction_desc = "Product purchase"
+            transaction_desc = "Pickup at Mtaani Mart Shop"
             callback_url = "https://api.darajambili.com/express-payment"
+
             response = cl.stk_push(
                 phone_number, amount,
                 account_reference, transaction_desc,
                 callback_url
             )
-            print(response)# debug response in console
-        return HttpResponse(response)
+            print(response)
+            return HttpResponse(response)
     else:
         form = CheckoutForm()
 
     return render(request, "authApp/checkout.html", {
         "form": form,
         "cart_items": cart_items,
-        "total": total
+        "total": total,
+        "quantities": quantities,
     })
-
 
 
 # Create your views here.
@@ -98,18 +104,17 @@ def mpesaPayment(request):
     context={}
     return render(request,'authApp/prompt_stk_push.html',context)
 
-
-'''def add_delivery_location(request):
-    if request.method == "POST":
-        form = DeliveryLocationForm(request.POST)
-        if form.is_valid():
-            delivery_location = form.save(commit=False)
-            delivery_location.user = request.user  # link to logged-in user
-            delivery_location.save()
-            return redirect("delivery_map")  # go to map after saving
-    else:
-        form = DeliveryLocationForm()
-    return render(request, "add_delivery.html", {"form": form})'''
     
 def help_page(request):
     return render(request, "authApp/help.html")
+
+
+
+
+
+'''def delivery_points_map(request):
+    points = DeliveryPoint.objects.all()
+    points_json = serialize('geojson', points)
+    return render(request, 'delivery_map.html', {'delivery_points': points_json})'''
+
+

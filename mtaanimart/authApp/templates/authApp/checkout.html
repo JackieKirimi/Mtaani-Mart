@@ -15,12 +15,35 @@
 
     <form method="POST">
       {% csrf_token %}
-      {{ form.phone_number }}   <!-- ✅ matches forms.py -->
-      {% if form.phone_number.errors %}
-        <div style="color:red; font-size:0.85rem;">
-          {{ form.phone_number.errors }}
-        </div>
-      {% endif %}
+
+      <!-- Phone Number Field -->
+      <div style="margin-bottom:15px;">
+        <label for="id_phone_number" style="font-weight:bold; color:#6a0dad;">Phone Number:</label>
+        {{ form.phone_number }}
+        {% if form.phone_number.errors %}
+          <div style="color:red; font-size:0.85rem;">
+            {{ form.phone_number.errors }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Quantity Dropdown -->
+      <div style="margin-bottom:15px;">
+        <label for="id_quantity" style="font-weight:bold; color:#6a0dad;">Quantity:</label>
+        <select name="quantity" id="id_quantity" class="form-control">
+          {% for i in quantities %}
+            <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Fixed Pickup Info -->
+      <div style="margin-bottom:15px; text-align:center; color:#6a0dad;">
+        <p>
+          Your order will be ready for <strong>Pickup at Mtaani Mart Shop</strong><br>
+          Nairobi CBD, Opposite Kencom House
+        </p>
+      </div>
 
       <input type="submit" value="Pay Now"
         style="width:100%; background-color:#28a745; color:white; padding:10px; border:none; border-radius:30px; font-weight:bold; margin-top:20px;">

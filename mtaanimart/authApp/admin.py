@@ -1,5 +1,7 @@
 from django.contrib import admin
-#from .models import DeliveryLocation
+'''from leaflet.admin import LeafletGeoAdmin
+from .models import DeliveryPoint
 
-# Register your models here.
-#admin.site.register(DeliveryLocation)
+@admin.register(DeliveryPoint)
+class DeliveryPointAdmin(LeafletGeoAdmin):
+    list_display = ('name', 'location')'''

@@ -1,11 +1,9 @@
 from django.db import models
-'''from django.contrib.auth.models import User
+#from django.contrib.gis.db import models
 
-class DeliveryLocation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=255)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+'''class DeliveryPoint(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.PointField()  # stores latitude & longitude
 
-
-# Create your models here.'''
+    def __str__(self):
+        return self.name'''

@@ -1,12 +1,14 @@
 from django import forms
+'''from .models import DeliveryPoint
+from leaflet.forms.widgets import LeafletWidget'''
+
 
 class CheckoutForm(forms.Form):
     phone_number = forms.CharField(
-        max_length=13,
-        label="Phone Number",
+        max_length=15,
         widget=forms.TextInput(attrs={
-            "class": "form-control",
-            "placeholder": "e.g. 2547XXXXXXXX"
+            'placeholder': 'e.g. 2547XXXXXXXX',
+            'class': 'form-control'
         })
     )
 
@@ -18,3 +20,6 @@ class CheckoutForm(forms.Form):
         if not (number.startswith("2547") and number.isdigit() and 12 <= len(number) <= 13):
             raise forms.ValidationError("Use format 2547XXXXXXXX")
         return number
+
+
+

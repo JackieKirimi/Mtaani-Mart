@@ -1,5 +1,8 @@
 from django.urls import path, include
 from . import views
+from django.urls import path
+#from .views import delivery_points_map
+
 
 urlpatterns = [
     path('index',views.index, name='index'),
@@ -8,9 +11,7 @@ urlpatterns = [
     path('register/', views.registerUser, name='register'),
     path('payment', views.mpesaPayment, name='mpesaPayment'),
     path("checkout/", views.checkout, name="checkout"),
-    #path("delivery/", views.delivery_map, name="delivery_map"),
-    #path("add-delivery/", views.add_delivery_location, name="add_delivery"),
-     path("help/", views.help_page, name="help")
-
+    path("help/", views.help_page, name="help"),
+   # path('delivery-points/', delivery_points_map, name='delivery_points'),
 
 ]
