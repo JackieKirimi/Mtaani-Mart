@@ -1,22 +1,26 @@
 {% extends "main.html" %}
 {% block title %}My Cart - Mtaani Mart{% endblock %}
 
-{% block content %}
-<h2 class="text-center my-4 ">My Cart</h2>
+{% block content%}
+
+<h2 class="text-center my-4" style="color:#6a0dad;">My Cart</h2>
+
+
 
 <div class="container">
     {% if cart_items %}
     <table class="table table-striped" style="border-radius:10px; overflow:hidden;">
-        <thead style="background-color:#6a0dad; color:white; text-align:center;">
-            <tr>
-                <th>Product</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+        <thead style="background-color:#eae8e8; color:#6a0dad; text-align:center;">
+    <tr>
+        <th>Product</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Action</th>
+    </tr>
+</thead>
+
         <tbody>
             {% for item in cart_items %}
             <tr>
@@ -29,7 +33,7 @@
                 </td>
                 <td style="color:#28a745; font-weight:bold;">Ksh {{ item.product.price }}</td>
                 <td style="text-align:center;">{{ item.quantity }}</td>
-                <!-- ✅ Correct subtotal calculation -->
+                
                 <td style="color:#6a0dad; font-weight:bold;">
                     Ksh {{ item.subtotal|floatformat:2 }}
                 </td>
@@ -50,7 +54,7 @@
         Total: Ksh {{ total }}
     </h4>
 
-    <!-- Checkout Button -->
+  
     <div class="text-end mt-3">
         <a href="{% url 'checkout' %}" class="text-decoration-none"
             style="background-color:#28a745; color:white; padding:10px 25px; border:none; border-radius:30px; font-weight:bold; box-shadow:0 4px 8px rgba(0,0,0,0.1);">Checkout</a>

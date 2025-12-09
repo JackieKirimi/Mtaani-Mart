@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from django.urls import path
-#from .views import delivery_points_map
+
 
 
 urlpatterns = [
@@ -12,6 +12,5 @@ urlpatterns = [
     path('payment', views.mpesaPayment, name='mpesaPayment'),
     path("checkout/", views.checkout, name="checkout"),
     path("help/", views.help_page, name="help"),
-   # path('delivery-points/', delivery_points_map, name='delivery_points'),
-
+   
 ]

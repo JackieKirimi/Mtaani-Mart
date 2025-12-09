@@ -33,14 +33,46 @@ def add_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('product_list')  # after saving, go back to product list
+            return redirect('product_list') 
     else:
         form = ProductForm()
     
     return render(request, 'productApp/add_product.html', {'form': form})
 
+def checkout(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total = sum(item.product.price * item.quantity for item in cart_items)
+    amount = int(total) if total >= 1 else 1
+    quantities = range(1, 11)
 
-# ✅ match folder name
+    if request.method == "POST":
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            phone_number = form.cleaned_data["phone_number"]
+            quantity = int(request.POST.get("quantity", 1))
+
+            cl = MpesaClient()
+            account_reference = "Mtaani Mart"
+            transaction_desc = "Pickup at Mtaani Mart Shop"
+            callback_url = "https://api.darajambili.com/express-payment"
+
+            response = cl.stk_push(
+                phone_number, amount,
+                account_reference, transaction_desc,
+                callback_url
+            )
+            print(response)
+            return HttpResponse(response)
+    else:
+        form = CheckoutForm()
+
+    return render(request, "authApp/checkout.html", {
+        "form": form,
+        "cart_items": cart_items,
+        "total": total,
+        "quantities": quantities,
+    })
+
 
 @login_required
 def add_to_cart(request, product_id):
@@ -60,7 +92,6 @@ def cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total = sum(item.product.price * item.quantity for item in cart_items)
     return render(request, 'ProductApp/cart.html', {"cart_items": cart_items, "total": total})
-
 @login_required
 def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)

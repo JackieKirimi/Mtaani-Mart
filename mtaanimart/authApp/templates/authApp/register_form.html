@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<!-- Full-page background -->
+<!--page background -->
 <div style="min-height:100vh; background: linear-gradient(135deg, #6a0dad, #28a745); padding-top:60px;">
 
   <!-- Registration card -->
@@ -14,7 +14,7 @@
     <form action="" method="POST">
       {% csrf_token %}
 
-      <!-- Username row -->
+      <!-- Username  -->
       <div style="display:flex; align-items:center; margin-bottom:20px;">
         <label for="{{ form.username.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Username:</label>
         <div style="flex:1;">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <!-- Password row -->
+      <!-- Password  -->
       <div style="display:flex; align-items:center; margin-bottom:20px;">
         <label for="{{ form.password1.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Password:</label>
         <div style="flex:1;">
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <!-- Confirm Password row -->
+      <!-- Confirm Password -->
       <div style="display:flex; align-items:center; margin-bottom:20px;">
         <label for="{{ form.password2.id_for_label }}" style="width:150px; font-weight:600; color:#333;">Confirm Password:</label>
         <div style="flex:1;">

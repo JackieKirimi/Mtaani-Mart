@@ -37,6 +37,12 @@ def checkout(request):
             phone_number = form.cleaned_data["phone_number"]
             quantity = int(request.POST.get("quantity", 1))
 
+            # ✅ Recalculate total using selected quantity
+            if cart_items.exists():
+                product_price = cart_items.first().product.price
+                total = product_price * quantity
+                amount = int(total)
+
             cl = MpesaClient()
             account_reference = "Mtaani Mart"
             transaction_desc = "Pickup at Mtaani Mart Shop"
@@ -58,7 +64,6 @@ def checkout(request):
         "total": total,
         "quantities": quantities,
     })
-
 
 # Create your views here.
 def loginUser(request):
