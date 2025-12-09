@@ -9,7 +9,7 @@ from .models import Product, CartItem
 def home(request):
     return render(request, 'ProductApp/home.html')
 
-@login_required
+@login_required(login_url='login')
 def product_list(request):
     products = Product.objects.all()
 
@@ -87,7 +87,7 @@ def add_to_cart(request, product_id):
         cart_item.save()
     return redirect("cart")
 
-@login_required
+@login_required(login_url='login')
 def cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total = sum(item.product.price * item.quantity for item in cart_items)
